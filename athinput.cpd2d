@@ -1,0 +1,90 @@
+<comment>
+Input parameters
+----------------------
+T0 = 66.0 Kelvin
+mu = 2.3
+a  = 5.0 AU
+Mp = 317.9839249832552 earth mass = 1.0 jupiter mass
+Mstar = 1.0 solar mass
+Sigma = 488.0 g/cm^2
+
+<job>
+problem_id  = disk      # problem ID: basename of output filenames
+
+<output1>
+file_type   = hdf5       # VTK data dump
+variable    = prim,uov      #
+dt          = 0.628    # time increment between outputs
+ghost_zones = False
+
+<output3>
+file_type = rst
+dt = 6.28
+
+<time>
+cfl_number  = 0.3       # The Courant, Friedrichs, & Lewy (CFL) Number
+nlim        = -1       # cycle limit
+tlim        = 6280      # time limit
+integrator  = rk2       # time integration algorithm
+xorder      = 2         # order of spatial reconstruction
+ncycle_out  = 1         # interval for stdout summary info
+sts_max_dt_ratio = 100
+
+<mesh>
+nx1         = 110              # Number of zones in X1-direction
+x1min       = 0.02    # minimum value of X1
+x1max       = 1.8688522352136576             # maximum value of X1
+ix1_bc      = user        # Inner-X1 boundary condition flag
+ox1_bc      = user           # Outer-X1 boundary condition flag
+x1rat       = 1.042111156101247
+
+nx2         = 32              # Number of zones in X2-direction
+x2min       = 0.0             # minimum value of X2
+x2max       = 1.5707963267948966   # maximum value of X2
+ix2_bc      = user     # Inner-X2 boundary condition flag
+ox2_bc      = user      # Outer-X2 boundary condition flag
+
+nx3         = 1               # Number of zones in X3-direction
+x3min       = 0.0            # minimum value of X3
+x3max       = 6.283185307179586             # maximum value of X3
+ix3_bc      = periodic         # Inner-X3 boundary condition flag
+ox3_bc      = periodic         # Outer-X3 boundary condition flag
+
+<meshblock>
+nx1 = 10
+nx2 = 4
+nx3 = 1
+
+<hydro>
+gamma           = 1.4 # gamma = C_p/C_v
+iso_sound_speed = 1.0        # isothermal sound speed
+dfloor          = 1.e-6
+pfloor          = 1.e-9
+
+<orbital_advection>
+OAorder     = 0   # 0: w/o OA, 1: w/ OA (1st), 2: w/ OA (2nd)
+Omega0      = 0.0 # angular velocity of the system
+
+<radiation>
+T_unit   = 66.0
+density_unit = 1.2692258755274878e-13
+length_unit   = 2732643280246.523
+prat = 0.0004740625590284684
+crat = 613771.1718173571
+nmu         = 3
+nzeta       = 4
+npsi        = 4
+error_limit = 1.0e-4
+nlimit      = 10
+angle_flag  = 1
+
+<problem>
+qthermal    = 19.581508598567883
+epsilon     = 0.0
+nu_iso      = 0.001
+tinj        = 6.28
+opacity_file = opacitysolar09dustq3p5amax1new.txt
+inner_hydro = outflow
+outer_hydro = disk
+inner_rad = outflow
+outer_rad = outflow-isotropic
