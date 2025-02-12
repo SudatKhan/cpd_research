@@ -586,48 +586,6 @@ void TableOpacity(MeshBlock *pmb, AthenaArray<Real> &prim)
   }}}
 }
 
-// hook for saving fluxes for outputting
-
-void MeshBlock::UserWorkInStage(int stage) {
-  if (output_fluxes) {
-    Real coeff = 0.5;
-    int nmax = 2*pmy_mesh->ndim;
-    AthenaArray<Real> &x1flux = phydro->flux[X1DIR];
-    AthenaArray<Real> &x2flux = phydro->flux[X2DIR];
-    AthenaArray<Real> &x3flux = phydro->flux[X3DIR];
-    for (int k=ks; k<=ke; ++k) {
-      for (int j=js; j<=je; ++j) {
-        for (int i=is; i<=ie; ++i) {
-          if (stage == 1) {
-            for (int n=0; n<nmax; n++) {
-              user_out_var(n,k,j,i) = 0.0;
-            }
-          }
-          user_out_var(0,k,j,i) += coeff*x1flux(IDN,k,j,i);
-          user_out_var(1,k,j,i) += coeff*x1flux(IDN,k,j,i+1);
-          if (pmy_mesh->f2) {
-            user_out_var(2,k,j,i) += coeff*x2flux(IDN,k,j,i);
-            user_out_var(3,k,j,i) += coeff*x2flux(IDN,k,j+1,i);
-          }
-          if (pmy_mesh->f3) {
-            user_out_var(4,k,j,i) += coeff*x3flux(IDN,k,j,i);
-            user_out_var(5,k,j,i) += coeff*x3flux(IDN,k+1,j,i);
-          }
-        }
-      }
-    }
-  }
-  return;
-}
-
-
-void MeshBlock::UserWorkInLoop() {
-  return;
-}
-
-void Mesh::UserWorkInLoop() {
-  return;
-}
 
 Real Potential(Real x3, Real x2, Real x1, Real time) {
   Real pot, x, z;
