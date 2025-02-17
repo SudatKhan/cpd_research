@@ -66,11 +66,12 @@ OAorder     = 0   # 0: w/o OA, 1: w/ OA (1st), 2: w/ OA (2nd)
 Omega0      = 0.0 # angular velocity of the system
 
 <radiation>
+unit = 1
 T_unit   = 66.0
-density_unit = 1.2692258755274878e-13
+density_unit = 3.649783739477354e-11
 length_unit   = 2732643280246.523
-prat = 0.0004740625590284684
-crat = 613771.1718173571
+prat = 0.0 #to be determined
+crat = 0.0 #to be determined
 nmu         = 3
 nzeta       = 4
 npsi        = 4
@@ -79,12 +80,12 @@ nlimit      = 10
 angle_flag  = 1
 
 <problem>
-qthermal    = 19.581508598567883
-epsilon     = 0.0
+qthermal    = 0.50
+epsilon     = 0.05
 nu_iso      = 0.001
 tinj        = 6.28
 opacity_file = opacitysolar09dustq3p5amax1new.txt
-inner_hydro = outflow
+inner_hydro = reflecting
 outer_hydro = disk
-inner_rad = outflow
+inner_rad = reflecting
 outer_rad = outflow-isotropic
